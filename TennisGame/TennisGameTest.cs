@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TennisGame
 {
@@ -8,29 +9,35 @@ namespace TennisGame
         [TestMethod]
         public void GetTennisResult_Player1_score_0_Player2_score_0()
         {
-            // arrange
-            var player1 = new TennisPlayer(0);
-            var player2 = new TennisPlayer(0);
-            var scoreboard = new GameScoreboard();
-            const string expected = "Love All";
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(0),
+                new TennisPlayer(0)
+            };
 
-            // act
-            var gameResult = scoreboard.GetGameResult(player1, player2);
-
-            // assert
-            Assert.AreEqual(expected, gameResult);
+            GameResultShouldBe("Love All", players);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_1_Player_score_0()
         {
-            var player1 = new TennisPlayer(1);
-            var player2 = new TennisPlayer(0);
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(1),
+                new TennisPlayer(0)
+            };
+
+            GameResultShouldBe("15 Love", players);
+        }
+
+        private static void GameResultShouldBe(string expected, List<TennisPlayer> players)
+        {
             var scoreboard = new GameScoreboard();
-            const string expected = "15 Love";
 
-            var gameResult = scoreboard.GetGameResult(player1, player2);
+            // act
+            var gameResult = scoreboard.GetGameResult(players[0], players[1]);
 
+            // assert
             Assert.AreEqual(expected, gameResult);
         }
     }
@@ -57,8 +64,6 @@ namespace TennisGame
     public class TennisPlayer
     {
         public int Score { get; }
-
-        //        public TennisPlayer() { }
 
         public TennisPlayer(int score)
         {
