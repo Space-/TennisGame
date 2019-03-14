@@ -132,18 +132,24 @@ namespace TennisGame
             }
             else if (firstPlayer.Score > secondPlayer.Score)
             {
+                var thisRoundScore = 0;
+
                 if (firstPlayer.Score == 1 && secondPlayer.Score == 0)
                 {
-                    return "15 Love";
+                    thisRoundScore = 15;
                 }
                 else if (firstPlayer.Score == 2 && secondPlayer.Score == 0)
                 {
-                    return "30 Love";
+                    thisRoundScore = 30;
                 }
                 else if (firstPlayer.Score == 3 && secondPlayer.Score == 0)
                 {
-                    return "40 Love";
+                    thisRoundScore = 40;
                 }
+
+                var resultStr = thisRoundScore + " Love";
+
+                return resultStr;
             }
             else if (firstPlayer.Score < secondPlayer.Score)
             {
