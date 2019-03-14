@@ -44,6 +44,17 @@ namespace TennisGame
         }
 
         [TestMethod]
+        public void GetTennisResult_Player1_score_3_Player_score_0()
+        {
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(3),
+                new TennisPlayer(0)
+            };
+
+            GameResultShouldBe("40 Love", players);
+        }
+
         public void GetHighestScore_Player1_score_2_Player_score_0()
         {
             var players = new List<TennisPlayer>()
@@ -78,7 +89,7 @@ namespace TennisGame
             var gameScoreboard = new GameScoreboard();
 
             // act
-            var gameResult = gameScoreboard.GetGameResult(players[0], players[1]);
+            var gameResult = gameScoreboard.GetGameResult(players);
 
             // assert
             Assert.AreEqual(expected, gameResult);
@@ -97,6 +108,19 @@ namespace TennisGame
             return players.Aggregate((scoreLowPlayer, scoreHighPlayer) => scoreLowPlayer.Score < scoreHighPlayer.Score ? scoreLowPlayer : scoreHighPlayer);
         }
 
+
+
+
+        public string GetGameResult(List<TennisPlayer> players)
+        {
+            var highestScorePlayer = GetHighestScorePlayer(players);
+            var LowestScorePlayer = GetLowestScorePlayer(players);
+            var gameResult = GetGameResult(highestScorePlayer, LowestScorePlayer);
+
+            return gameResult;
+        }
+
+
         public string GetGameResult(TennisPlayer player1, TennisPlayer player2)
         {
             if (player1.Score == 0 && player1.Score == player2.Score)
@@ -110,6 +134,10 @@ namespace TennisGame
             else if (player1.Score == 2 && player2.Score == 0)
             {
                 return "30 Love";
+            }
+            else if(player1.Score == 3 && player2.Score == 0)
+            {
+                return "40 Love";
             }
             else
             {
