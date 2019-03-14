@@ -12,8 +12,8 @@ namespace TennisGame
         {
             var players = new List<TennisPlayer>()
             {
-                new TennisPlayer(0),
-                new TennisPlayer(0)
+                new TennisPlayer(){Score = 0},
+                new TennisPlayer(){Score = 0}
             };
 
             GameResultShouldBe("Love All", players);
@@ -24,8 +24,8 @@ namespace TennisGame
         {
             var players = new List<TennisPlayer>()
             {
-                new TennisPlayer(1),
-                new TennisPlayer(0)
+                new TennisPlayer(){Score = 1},
+                new TennisPlayer(){Score = 0}
             };
 
             GameResultShouldBe("15 Love", players);
@@ -36,8 +36,8 @@ namespace TennisGame
         {
             var players = new List<TennisPlayer>()
             {
-                new TennisPlayer(2),
-                new TennisPlayer(0)
+                new TennisPlayer(){Score = 2},
+                new TennisPlayer(){Score = 0}
             };
 
             GameResultShouldBe("30 Love", players);
@@ -48,8 +48,8 @@ namespace TennisGame
         {
             var players = new List<TennisPlayer>()
             {
-                new TennisPlayer(2),
-                new TennisPlayer(0)
+                new TennisPlayer(){Score = 2},
+                new TennisPlayer(){Score = 0}
             };
 
             var gameScoreboard = new GameScoreboard();
@@ -63,8 +63,8 @@ namespace TennisGame
         {
             var players = new List<TennisPlayer>()
             {
-                new TennisPlayer(2),
-                new TennisPlayer(0)
+                new TennisPlayer(){Score = 2},
+                new TennisPlayer(){Score = 0}
             };
 
             var gameScoreboard = new GameScoreboard();
@@ -78,7 +78,7 @@ namespace TennisGame
             var gameScoreboard = new GameScoreboard();
 
             // act
-            var gameResult = gameScoreboard.GetGameResult(players[0], players[1]);
+            var gameResult = gameScoreboard.GetGameResult(players);
 
             // assert
             Assert.AreEqual(expected, gameResult);
@@ -97,34 +97,45 @@ namespace TennisGame
             return players.Aggregate((scoreLowPlayer, scoreHighPlayer) => scoreLowPlayer.Score < scoreHighPlayer.Score ? scoreLowPlayer : scoreHighPlayer);
         }
 
-        public string GetGameResult(TennisPlayer player1, TennisPlayer player2)
+        public string GetGameResult(List<TennisPlayer> players)
         {
-            if (player1.Score == 0 && player1.Score == player2.Score)
+            //            var highestScorePlayer = GetHighestScorePlayer(players);
+            //            var lowestScorePlayer = GetLowestScorePlayer(players);
+            var firstPlayer = players[0];
+            var secondPlayer = players[1];
+            if (IsTwoPlayerSameScore(firstPlayer, secondPlayer))
             {
-                return "Love All";
+                if (firstPlayer.Score == 0)
+                {
+                    return "Love All";
+                }
             }
-            else if (player1.Score == 1 && player2.Score == 0)
+            else if (firstPlayer.Score > secondPlayer.Score)
             {
-                return "15 Love";
+                if (firstPlayer.Score == 1 && secondPlayer.Score == 0)
+                {
+                    return "15 Love";
+                }
             }
-            else if (player1.Score == 2 && player2.Score == 0)
+            else if (firstPlayer.Score < secondPlayer.Score)
             {
-                return "30 Love";
+                if (firstPlayer.Score == 2 && secondPlayer.Score == 0)
+                {
+                    return "30 Love";
+                }
             }
-            else
-            {
-                return "";
-            }
+
+            return "";
+        }
+
+        private bool IsTwoPlayerSameScore(TennisPlayer highScorePlayer, TennisPlayer lowScorePlayer)
+        {
+            return highScorePlayer.Score == lowScorePlayer.Score;
         }
     }
 
     public class TennisPlayer
     {
-        public int Score { get; }
-
-        public TennisPlayer(int score)
-        {
-            this.Score = score;
-        }
+        public int Score { get; set; }
     }
 }
