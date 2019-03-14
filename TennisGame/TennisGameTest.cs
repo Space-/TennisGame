@@ -48,8 +48,8 @@ namespace TennisGame
         {
             var players = new List<TennisPlayer>()
             {
-                new TennisPlayer(3),
-                new TennisPlayer(0)
+                new TennisPlayer(){Score = 3},
+                new TennisPlayer(){Score = 0}
             };
 
             GameResultShouldBe("40 Love", players);
@@ -108,14 +108,14 @@ namespace TennisGame
             return players.Aggregate((scoreLowPlayer, scoreHighPlayer) => scoreLowPlayer.Score < scoreHighPlayer.Score ? scoreLowPlayer : scoreHighPlayer);
         }
 
-        public string GetGameResult(List<TennisPlayer> players)
-        {
-            var highestScorePlayer = GetHighestScorePlayer(players);
-            var LowestScorePlayer = GetLowestScorePlayer(players);
-            var gameResult = GetGameResult(highestScorePlayer, LowestScorePlayer);
-
-            return gameResult;
-        }
+        //        public string GetGameResult(List<TennisPlayer> players)
+        //        {
+        //            var highestScorePlayer = GetHighestScorePlayer(players);
+        //            var LowestScorePlayer = GetLowestScorePlayer(players);
+        //            var gameResult = GetGameResult(highestScorePlayer, LowestScorePlayer);
+        //
+        //            return gameResult;
+        //        }
 
         public string GetGameResult(List<TennisPlayer> players)
         {
@@ -136,13 +136,17 @@ namespace TennisGame
                 {
                     return "15 Love";
                 }
-            }
-            else if (firstPlayer.Score < secondPlayer.Score)
-            {
-                if (firstPlayer.Score == 2 && secondPlayer.Score == 0)
+                else if (firstPlayer.Score == 2 && secondPlayer.Score == 0)
                 {
                     return "30 Love";
                 }
+                else if (firstPlayer.Score == 3 && secondPlayer.Score == 0)
+                {
+                    return "40 Love";
+                }
+            }
+            else if (firstPlayer.Score < secondPlayer.Score)
+            {
             }
 
             return "";
