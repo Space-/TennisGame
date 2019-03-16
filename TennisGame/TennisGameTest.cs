@@ -55,6 +55,18 @@ namespace TennisGame
             GameResultShouldBe("40 Love", players);
         }
 
+        [TestMethod]
+        public void GetTennisResult_Player1_score_4_Player_score_0_Result_Player1_win()
+        {
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 4, Name = "Player1"},
+                new TennisPlayer(){Score = 0, Name = "Player2"}
+            };
+
+            GameResultShouldBe("Player1 Win", players);
+        }
+
         public void GetHighestScore_Player1_score_2_Player_score_0()
         {
             var players = new List<TennisPlayer>()
