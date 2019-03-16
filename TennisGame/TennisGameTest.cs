@@ -149,6 +149,11 @@ namespace TennisGame
 
                 var resultStr = thisRoundScore + " Love";
 
+                if (firstPlayer.Score == 4 && secondPlayer.Score == 0)
+                {
+                    resultStr = firstPlayer.Name + " Win";
+                }
+
                 return resultStr;
             }
             else if (firstPlayer.Score < secondPlayer.Score)
@@ -167,5 +172,6 @@ namespace TennisGame
     public class TennisPlayer
     {
         public int Score { get; set; }
+        public string Name { get; set; }
     }
 }
