@@ -31,6 +31,18 @@ namespace TennisGame
         }
 
         [TestMethod]
+        public void GetTennisResult_Player1_score_0_Player2_score_1()
+        {
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 0},
+                new TennisPlayer(){Score = 1}
+            };
+
+            GameResultShouldBe("Love 15", players);
+        }
+
+        [TestMethod]
         public void GetTennisResult_Player1_score_2_Player_score_0()
         {
             var players = new List<TennisPlayer>()
@@ -40,6 +52,18 @@ namespace TennisGame
             };
 
             GameResultShouldBe("30 Love", players);
+        }
+
+        [TestMethod]
+        public void GetTennisResult_Player1_score_0_Player_score_2()
+        {
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 0},
+                new TennisPlayer(){Score = 2}
+            };
+
+            GameResultShouldBe("Love 30", players);
         }
 
         [TestMethod]
@@ -55,6 +79,18 @@ namespace TennisGame
         }
 
         [TestMethod]
+        public void GetTennisResult_Player1_score_0_Player_score_3()
+        {
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 0},
+                new TennisPlayer(){Score = 3}
+            };
+
+            GameResultShouldBe("Love 40", players);
+        }
+
+        [TestMethod]
         public void GetTennisResult_Player1_score_4_Player_score_0_Result_Player1_Win()
         {
             var players = new List<TennisPlayer>()
@@ -64,6 +100,18 @@ namespace TennisGame
             };
 
             GameResultShouldBe("Player1 Win", players);
+        }
+
+        [TestMethod]
+        public void GetTennisResult_Player1_score_0_Player_score_4_Result_Player2_Win()
+        {
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 0, Name = "Player1"},
+                new TennisPlayer(){Score = 4, Name = "Player2"}
+            };
+
+            GameResultShouldBe("Player2 Win", players);
         }
 
         [TestMethod]
@@ -79,6 +127,18 @@ namespace TennisGame
         }
 
         [TestMethod]
+        public void GetTennisResult_Player1_score_1_Player_score_4_Result_Player2_Win()
+        {
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 1, Name = "Player1"},
+                new TennisPlayer(){Score = 4, Name = "Player2"}
+            };
+
+            GameResultShouldBe("Player2 Win", players);
+        }
+
+        [TestMethod]
         public void GetTennisResult_Player1_score_4_Player_score_2_Result_Player1_Win()
         {
             var players = new List<TennisPlayer>()
@@ -88,6 +148,18 @@ namespace TennisGame
             };
 
             GameResultShouldBe("Player1 Win", players);
+        }
+
+        [TestMethod]
+        public void GetTennisResult_Player1_score_2_Player_score_4_Result_Player2_Win()
+        {
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 2, Name = "Player1"},
+                new TennisPlayer(){Score = 4, Name = "Player2"}
+            };
+
+            GameResultShouldBe("Player2 Win", players);
         }
 
         [TestMethod]
