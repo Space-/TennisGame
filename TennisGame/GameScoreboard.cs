@@ -48,7 +48,7 @@ namespace TennisGame
                         resultStr = $"{previousStr} {laterStr}";
                         break;
 
-                    case 3:
+                    default:
                         resultStr = "Deuce";
                         break;
                 }
