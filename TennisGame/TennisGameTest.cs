@@ -175,6 +175,18 @@ namespace TennisGame
         }
 
         [TestMethod]
+        public void GetTennisResult_Player1_score_4_Player_score_6_Result_Player2_Win()
+        {
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 4, Name = "Player1"},
+                new TennisPlayer(){Score = 6, Name = "Player2"}
+            };
+
+            GameResultShouldBe("Player2 Win", players);
+        }
+
+        [TestMethod]
         public void GetTennisResult_Player1_score_1_Player2_score_1()
         {
             var players = new List<TennisPlayer>()
