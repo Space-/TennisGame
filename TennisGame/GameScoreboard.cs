@@ -36,49 +36,66 @@ namespace TennisGame
             var scoreMapping = ScoreMappingDictionarySingleton.Instance;
             var previousStr = scoreMapping.GetValInDictionary(firstPlayer.Score);
             var laterStr = scoreMapping.GetValInDictionary(secondPlayer.Score);
-            var lowestScoreToWinThisRound = 4;
+            const int lowestScoreToWinThisRound = 4;
 
-            if (IsTwoPlayerSameScore(firstPlayer, secondPlayer))
+            var highestScorePlayer = GetHighestScorePlayer(players);
+            var lowestScorePlayer = GetLowestScorePlayer(players);
+            var twoPlayerScoreDiffVal = Math.Abs(highestScorePlayer.Score - lowestScorePlayer.Score);
+
+            switch (twoPlayerScoreDiffVal)
             {
-                switch (firstPlayer.Score)
-                {
-                    case 0:
-                        resultStr = "Love All";
-                        break;
+                case 0 when highestScorePlayer.Score == 0:
+                    resultStr = "Love All";
+                    break;
 
-                    case 1:
-                    case 2:
-                        resultStr = $"{previousStr} {laterStr}";
+                case 0 when highestScorePlayer.Score < lowestScoreToWinThisRound - 1:
+                case 1 when highestScorePlayer.Score < 4:
+                case 2 when highestScorePlayer.Score < 4:
+                case 3 when highestScorePlayer.Score < 4:
+                    {
+                        var scoresVal = GetPlayerScoreVal(players, scoreMapping);
+                        resultStr = GetGameResultStr(scoresVal[0], scoresVal[1]);
                         break;
+                    }
+                case 0 when highestScorePlayer.Score >= 3:
+                    resultStr = "Deuce";
+                    break;
 
-                    default:
-                        resultStr = "Deuce";
+                default:
+                    {
+                        GameScoreboard.DeuceCnt++;
+                        var deuceMsg = "Deuce" + GameScoreboard.DeuceCnt;
+                        previousStr = highestScorePlayer.Name;
+                        laterStr = twoPlayerScoreDiffVal == 1 ? deuceMsg : "Win";
+
+                        resultStr = GetGameResultStr(previousStr, laterStr);
                         break;
-                }
+                    }
             }
-            else
-            {
-                var highestScorePlayer = GetHighestScorePlayer(players);
-                var lowestScorePlayer = GetLowestScorePlayer(players);
-                var twoPlayerScoreDiffVal = Math.Abs(highestScorePlayer.Score - lowestScorePlayer.Score);
-
-                if (highestScorePlayer.Score >= lowestScoreToWinThisRound)
-                {
-                    GameScoreboard.DeuceCnt++;
-                    var deuceMsg = "Deuce" + GameScoreboard.DeuceCnt;
-                    previousStr = highestScorePlayer.Name;
-                    laterStr = twoPlayerScoreDiffVal == 1 ? deuceMsg : "Win";
-                }
-
-                resultStr = $"{previousStr} {laterStr}";
-            }
-
             return resultStr;
         }
 
-        private bool IsTwoPlayerSameScore(TennisPlayer highScorePlayer, TennisPlayer lowScorePlayer)
+        private static List<string> GetPlayerScoreVal(List<TennisPlayer> players, ScoreMappingDictionarySingleton scoreMapping)
         {
-            return highScorePlayer.Score == lowScorePlayer.Score;
+            var scoresVal = new List<string>();
+            foreach (var tennisPlayer in players)
+            {
+                var key = tennisPlayer.Score;
+                var value = scoreMapping.GetValInDictionary(key);
+                scoresVal.Add(value);
+            }
+
+            return scoresVal;
         }
+
+        private static string GetGameResultStr(string previousStr, string laterStr)
+        {
+            return $"{previousStr} {laterStr}";
+        }
+
+        //        private static bool IsTwoPlayerSameScore(TennisPlayer highScorePlayer, TennisPlayer lowScorePlayer)
+        //        {
+        //            return highScorePlayer.Score == lowScorePlayer.Score;
+        //        }
     }
 }
