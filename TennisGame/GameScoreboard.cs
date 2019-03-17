@@ -62,19 +62,7 @@ namespace TennisGame
                 if (highestScorePlayer.Score >= lowestScoreToWinThisRound)
                 {
                     previousStr = highestScorePlayer.Name;
-
-                    switch (twoPlayerScoreDiffVal)
-                    {
-                        case 1:  // ex:   4 : 3, 3 : 4
-                            laterStr = "Deuce1";
-                            break;
-
-                        case 2:  // ex:   4 : 2, 2 : 4
-                        case 3:  // ex:   4 : 1, 1 , 4
-                        case 4:  // ex:   4 : 0, 0 : 4
-                            laterStr = "Win";
-                            break;
-                    }
+                    laterStr = twoPlayerScoreDiffVal == 1 ? "Deuce1" : "Win";
                 }
 
                 resultStr = $"{previousStr} {laterStr}";
