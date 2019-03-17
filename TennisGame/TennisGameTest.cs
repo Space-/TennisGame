@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -215,18 +216,16 @@ namespace TennisGame
 
         public string GetGameResult(List<TennisPlayer> players)
         {
-            //            var highestScorePlayer = GetHighestScorePlayer(players);
-            //            var lowestScorePlayer = GetLowestScorePlayer(players);
-
             var firstPlayer = players[0];
             var secondPlayer = players[1];
             var resultStr = "";
+            var scoreMapping = ScoreMappingDictionarySingleton.Instance;
+            var previousStr = scoreMapping.GetValInDictionary(firstPlayer.Score);
+            var laterStr = scoreMapping.GetValInDictionary(secondPlayer.Score);
+            var lowestScoreToWinThisRound = 4;
+
             if (IsTwoPlayerSameScore(firstPlayer, secondPlayer))
             {
-                ScoreMappingDictionarySingleton scoreMapping = ScoreMappingDictionarySingleton.Instance;
-                var previousStr = scoreMapping.GetValInDictionary(firstPlayer.Score);
-                var laterStr = scoreMapping.GetValInDictionary(secondPlayer.Score);
-
                 switch (firstPlayer.Score)
                 {
                     case 0:
@@ -242,36 +241,33 @@ namespace TennisGame
                         resultStr = "Deuce";
                         break;
                 }
-
-                return resultStr;
             }
-            else if (firstPlayer.Score > secondPlayer.Score)
+            else
             {
-                ScoreMappingDictionarySingleton scoreMapping = ScoreMappingDictionarySingleton.Instance;
+                var highestScorePlayer = GetHighestScorePlayer(players);
+                var lowestScorePlayer = GetLowestScorePlayer(players);
+                var twoPlayerScoreDiffVal = Math.Abs(highestScorePlayer.Score - lowestScorePlayer.Score);
 
-                var previousStr = scoreMapping.GetValInDictionary(firstPlayer.Score);
-                var laterStr = scoreMapping.GetValInDictionary(secondPlayer.Score);
+                if (highestScorePlayer.Score >= lowestScoreToWinThisRound)
+                {
+                    previousStr = highestScorePlayer.Name;
 
-                if (firstPlayer.Score == 4 && secondPlayer.Score == 0 && firstPlayer.Score - secondPlayer.Score > 2)
-                {
-                    previousStr = firstPlayer.Name;
-                    laterStr = "Win";
-                }
-                else if (firstPlayer.Score == 4 && secondPlayer.Score == 3)
-                {
-                    previousStr = firstPlayer.Name;
-                    laterStr = "Deuce1";
+                    switch (twoPlayerScoreDiffVal)
+                    {
+                        case 1:  // ex:   4 : 3
+                            laterStr = "Deuce1";
+                            break;
+
+                        case 4:
+                            laterStr = "Win";
+                            break;
+                    }
                 }
 
                 resultStr = $"{previousStr} {laterStr}";
-
-                return resultStr;
-            }
-            else if (firstPlayer.Score < secondPlayer.Score)
-            {
             }
 
-            return "";
+            return resultStr;
         }
 
         private bool IsTwoPlayerSameScore(TennisPlayer highScorePlayer, TennisPlayer lowScorePlayer)
