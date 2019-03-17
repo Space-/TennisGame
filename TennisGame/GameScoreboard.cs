@@ -70,6 +70,7 @@ namespace TennisGame
                             break;
 
                         case 2:  // ex:   4 : 2, 2 : 4
+                        case 3:  // ex:   4 : 1, 1 , 4
                         case 4:  // ex:   4 : 0, 0 : 4
                             laterStr = "Win";
                             break;
