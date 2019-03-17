@@ -108,6 +108,54 @@ namespace TennisGame
         }
     }
 
+    public class ScoreMappingDictionarySingleton
+    {
+        private static Dictionary<int, string> _scoreMapping;
+        private static ScoreMappingDictionarySingleton _instance = null;
+
+        private ScoreMappingDictionarySingleton()
+        {
+            _scoreMapping = _scoreMapping ?? GetRoundScoreMapping();
+        }
+
+        private static class ScoreMappingDictionarySingletonHolder
+        {
+            internal static ScoreMappingDictionarySingleton Instance = _instance ?? new ScoreMappingDictionarySingleton();
+
+            static ScoreMappingDictionarySingletonHolder()
+            {
+            }
+        }
+
+        public static ScoreMappingDictionarySingleton Instance
+        {
+            get { return ScoreMappingDictionarySingletonHolder.Instance; }
+        }
+
+        private Dictionary<int, string> GetRoundScoreMapping()
+        {
+            var dictionary = new Dictionary<int, string>();
+            int[] scores = { 0, 1, 2, 3 };
+            string[] roundScoreResult = { "Love", "15", "30", "40" };
+
+            for (var i = 0; i < scores.Length; i++)
+            {
+                dictionary.Add(scores[i], roundScoreResult[i]);
+            }
+
+            return dictionary;
+        }
+
+        // 查字典 // find specific value
+        public string GetValInDictionary(int key)
+        {
+            string value;
+            value = _scoreMapping.ContainsKey(key) ? _scoreMapping[key] : "Not Found";
+
+            return value;
+        }
+    }
+
     public class GameScoreboard
     {
         public TennisPlayer GetHighestScorePlayer(List<TennisPlayer> players)
@@ -133,6 +181,7 @@ namespace TennisGame
         {
             //            var highestScorePlayer = GetHighestScorePlayer(players);
             //            var lowestScorePlayer = GetLowestScorePlayer(players);
+
             var firstPlayer = players[0];
             var secondPlayer = players[1];
             if (IsTwoPlayerSameScore(firstPlayer, secondPlayer))
@@ -144,22 +193,13 @@ namespace TennisGame
             }
             else if (firstPlayer.Score > secondPlayer.Score)
             {
-                var thisRoundScore = 0;
+                ScoreMappingDictionarySingleton scoreMapping = ScoreMappingDictionarySingleton.Instance;
+                string thisRoundScore = "0";
 
-                if (firstPlayer.Score == 1 && secondPlayer.Score == 0)
-                {
-                    thisRoundScore = 15;
-                }
-                else if (firstPlayer.Score == 2 && secondPlayer.Score == 0)
-                {
-                    thisRoundScore = 30;
-                }
-                else if (firstPlayer.Score == 3 && secondPlayer.Score == 0)
-                {
-                    thisRoundScore = 40;
-                }
+                var p1ScoreStr = scoreMapping.GetValInDictionary(firstPlayer.Score);
+                var p2ScoreStr = scoreMapping.GetValInDictionary(secondPlayer.Score);
 
-                var resultStr = thisRoundScore + " Love";
+                var resultStr = $"{p1ScoreStr} {p2ScoreStr}";
 
                 if (firstPlayer.Score == 4 && secondPlayer.Score == 0)
                 {
