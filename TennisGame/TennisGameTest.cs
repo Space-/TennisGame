@@ -79,6 +79,18 @@ namespace TennisGame
             GameResultShouldBe("Player1 Deuce1", players);
         }
 
+        [TestMethod]
+        public void GetTennisResult_Player1_score_1_Player2_score_1()
+        {
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 1},
+                new TennisPlayer(){Score = 1}
+            };
+
+            GameResultShouldBe("15 15", players);
+        }
+
         public void GetHighestScore_Player1_score_2_Player_score_0()
         {
             var players = new List<TennisPlayer>()
@@ -202,11 +214,19 @@ namespace TennisGame
                 {
                     return "Love All";
                 }
+                else if (firstPlayer.Score == 1)
+                {
+                    ScoreMappingDictionarySingleton scoreMapping = ScoreMappingDictionarySingleton.Instance;
+
+                    var previousStr = scoreMapping.GetValInDictionary(firstPlayer.Score);
+                    var laterStr = scoreMapping.GetValInDictionary(secondPlayer.Score);
+                    var resultStr = $"{previousStr} {laterStr}";
+                    return resultStr;
+                }
             }
             else if (firstPlayer.Score > secondPlayer.Score)
             {
                 ScoreMappingDictionarySingleton scoreMapping = ScoreMappingDictionarySingleton.Instance;
-                string thisRoundScore = "0";
 
                 var previousStr = scoreMapping.GetValInDictionary(firstPlayer.Score);
                 var laterStr = scoreMapping.GetValInDictionary(secondPlayer.Score);
