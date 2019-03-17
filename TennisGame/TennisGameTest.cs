@@ -91,6 +91,18 @@ namespace TennisGame
             GameResultShouldBe("15 15", players);
         }
 
+        [TestMethod]
+        public void GetTennisResult_Player1_score_2_Player2_score_2()
+        {
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 2},
+                new TennisPlayer(){Score = 2}
+            };
+
+            GameResultShouldBe("30 30", players);
+        }
+
         public void GetHighestScore_Player1_score_2_Player_score_0()
         {
             var players = new List<TennisPlayer>()
@@ -208,21 +220,30 @@ namespace TennisGame
 
             var firstPlayer = players[0];
             var secondPlayer = players[1];
+            var resultStr = "";
             if (IsTwoPlayerSameScore(firstPlayer, secondPlayer))
             {
-                if (firstPlayer.Score == 0)
-                {
-                    return "Love All";
-                }
-                else if (firstPlayer.Score == 1)
-                {
-                    ScoreMappingDictionarySingleton scoreMapping = ScoreMappingDictionarySingleton.Instance;
+                ScoreMappingDictionarySingleton scoreMapping = ScoreMappingDictionarySingleton.Instance;
+                var previousStr = scoreMapping.GetValInDictionary(firstPlayer.Score);
+                var laterStr = scoreMapping.GetValInDictionary(secondPlayer.Score);
 
-                    var previousStr = scoreMapping.GetValInDictionary(firstPlayer.Score);
-                    var laterStr = scoreMapping.GetValInDictionary(secondPlayer.Score);
-                    var resultStr = $"{previousStr} {laterStr}";
-                    return resultStr;
+                switch (firstPlayer.Score)
+                {
+                    case 0:
+                        resultStr = "Love All";
+                        break;
+
+                    case 1:
+                    case 2:
+                        resultStr = $"{previousStr} {laterStr}";
+                        break;
+
+                    case 3:
+                        resultStr = "Deuce";
+                        break;
                 }
+
+                return resultStr;
             }
             else if (firstPlayer.Score > secondPlayer.Score)
             {
@@ -242,7 +263,7 @@ namespace TennisGame
                     laterStr = "Deuce1";
                 }
 
-                var resultStr = $"{previousStr} {laterStr}";
+                resultStr = $"{previousStr} {laterStr}";
 
                 return resultStr;
             }
