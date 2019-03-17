@@ -175,6 +175,62 @@ namespace TennisGame
         }
 
         [TestMethod]
+        public void GetTennisResult_Player1_score_4_Player_score_5_Result_Player2_Deuce2()
+        {
+            var gameScoreboard = new GameScoreboard();
+
+            // Deuce1
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 4, Name = "Player1"},
+                new TennisPlayer(){Score = 3, Name = "Player2"}
+            };
+
+            // act
+            var gameResult = gameScoreboard.GetGameResult(players);
+
+            // Deuce2
+            players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 4, Name = "Player1"},
+                new TennisPlayer(){Score = 5, Name = "Player2"}
+            };
+
+            gameResult = gameScoreboard.GetGameResult(players);
+
+            // assert
+            Assert.AreEqual("Player2 Deuce2", gameResult);
+        }
+
+        [TestMethod]
+        public void GetTennisResult_Player1_score_5_Player_score_4_Result_Player1_Deuce2()
+        {
+            var gameScoreboard = new GameScoreboard();
+
+            // Deuce1
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 3, Name = "Player1"},
+                new TennisPlayer(){Score = 4, Name = "Player2"}
+            };
+
+            // act
+            var gameResult = gameScoreboard.GetGameResult(players);
+
+            // Deuce2
+            players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 5, Name = "Player1"},
+                new TennisPlayer(){Score = 4, Name = "Player2"}
+            };
+
+            gameResult = gameScoreboard.GetGameResult(players);
+
+            // assert
+            Assert.AreEqual("Player1 Deuce2", gameResult);
+        }
+
+        [TestMethod]
         public void GetTennisResult_Player1_score_4_Player_score_6_Result_Player2_Win()
         {
             var players = new List<TennisPlayer>()

@@ -6,6 +6,18 @@ namespace TennisGame
 {
     public class GameScoreboard
     {
+        public static int DeuceCnt;
+
+        public GameScoreboard()
+        {
+            InitGameScoreBoard();
+        }
+
+        public void InitGameScoreBoard()
+        {
+            DeuceCnt = 0;
+        }
+
         public TennisPlayer GetHighestScorePlayer(List<TennisPlayer> players)
         {
             return players.Aggregate((scoreHighPlayer, scoreLowPlayer) => scoreHighPlayer.Score > scoreLowPlayer.Score ? scoreHighPlayer : scoreLowPlayer);
@@ -15,15 +27,6 @@ namespace TennisGame
         {
             return players.Aggregate((scoreLowPlayer, scoreHighPlayer) => scoreLowPlayer.Score < scoreHighPlayer.Score ? scoreLowPlayer : scoreHighPlayer);
         }
-
-        //        public string GetGameResult(List<TennisPlayer> players)
-        //        {
-        //            var highestScorePlayer = GetHighestScorePlayer(players);
-        //            var LowestScorePlayer = GetLowestScorePlayer(players);
-        //            var gameResult = GetGameResult(highestScorePlayer, LowestScorePlayer);
-        //
-        //            return gameResult;
-        //        }
 
         public string GetGameResult(List<TennisPlayer> players)
         {
@@ -61,8 +64,10 @@ namespace TennisGame
 
                 if (highestScorePlayer.Score >= lowestScoreToWinThisRound)
                 {
+                    GameScoreboard.DeuceCnt++;
+                    var deuceMsg = "Deuce" + GameScoreboard.DeuceCnt;
                     previousStr = highestScorePlayer.Name;
-                    laterStr = twoPlayerScoreDiffVal == 1 ? "Deuce1" : "Win";
+                    laterStr = twoPlayerScoreDiffVal == 1 ? deuceMsg : "Win";
                 }
 
                 resultStr = $"{previousStr} {laterStr}";
