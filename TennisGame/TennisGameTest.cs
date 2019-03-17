@@ -55,12 +55,24 @@ namespace TennisGame
         }
 
         [TestMethod]
-        public void GetTennisResult_Player1_score_4_Player_score_0_Result_Player1_win()
+        public void GetTennisResult_Player1_score_4_Player_score_0_Result_Player1_Win()
         {
             var players = new List<TennisPlayer>()
             {
                 new TennisPlayer(){Score = 4, Name = "Player1"},
                 new TennisPlayer(){Score = 0, Name = "Player2"}
+            };
+
+            GameResultShouldBe("Player1 Win", players);
+        }
+
+        [TestMethod]
+        public void GetTennisResult_Player1_score_4_Player_score_2_Result_Player1_Win()
+        {
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 4, Name = "Player1"},
+                new TennisPlayer(){Score = 2, Name = "Player2"}
             };
 
             GameResultShouldBe("Player1 Win", players);

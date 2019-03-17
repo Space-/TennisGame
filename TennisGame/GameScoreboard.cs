@@ -65,11 +65,12 @@ namespace TennisGame
 
                     switch (twoPlayerScoreDiffVal)
                     {
-                        case 1:  // ex:   4 : 3
+                        case 1:  // ex:   4 : 3, 3 : 4
                             laterStr = "Deuce1";
                             break;
 
-                        case 4:
+                        case 2:  // ex:   4 : 2, 2 : 4
+                        case 4:  // ex:   4 : 0, 0 : 4
                             laterStr = "Win";
                             break;
                     }
