@@ -102,6 +102,7 @@ namespace TennisGame
             GameResultShouldBe("30 30", players);
         }
 
+        [TestMethod]
         public void GetHighestScore_Player1_score_2_Player_score_0()
         {
             var players = new List<TennisPlayer>()
