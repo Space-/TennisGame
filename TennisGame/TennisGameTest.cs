@@ -127,6 +127,18 @@ namespace TennisGame
         }
 
         [TestMethod]
+        public void GetTennisResult_Player1_score_3_Player2_score_3_Result_Deuce()
+        {
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 3},
+                new TennisPlayer(){Score = 3}
+            };
+
+            GameResultShouldBe("Deuce", players);
+        }
+
+        [TestMethod]
         public void GetHighestScore_Player1_score_2_Player_score_0()
         {
             var players = new List<TennisPlayer>()
