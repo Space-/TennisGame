@@ -67,6 +67,18 @@ namespace TennisGame
             GameResultShouldBe("Player1 Win", players);
         }
 
+        [TestMethod]
+        public void GetTennisResult_Player1_score_4_Player_score_3_Result_Player1_Deuce1()
+        {
+            var players = new List<TennisPlayer>()
+            {
+                new TennisPlayer(){Score = 4, Name = "Player1"},
+                new TennisPlayer(){Score = 3, Name = "Player2"}
+            };
+
+            GameResultShouldBe("Player1 Deuce1", players);
+        }
+
         public void GetHighestScore_Player1_score_2_Player_score_0()
         {
             var players = new List<TennisPlayer>()
@@ -196,15 +208,21 @@ namespace TennisGame
                 ScoreMappingDictionarySingleton scoreMapping = ScoreMappingDictionarySingleton.Instance;
                 string thisRoundScore = "0";
 
-                var p1ScoreStr = scoreMapping.GetValInDictionary(firstPlayer.Score);
-                var p2ScoreStr = scoreMapping.GetValInDictionary(secondPlayer.Score);
+                var previousStr = scoreMapping.GetValInDictionary(firstPlayer.Score);
+                var laterStr = scoreMapping.GetValInDictionary(secondPlayer.Score);
 
-                var resultStr = $"{p1ScoreStr} {p2ScoreStr}";
-
-                if (firstPlayer.Score == 4 && secondPlayer.Score == 0)
+                if (firstPlayer.Score == 4 && secondPlayer.Score == 0 && firstPlayer.Score - secondPlayer.Score > 2)
                 {
-                    resultStr = firstPlayer.Name + " Win";
+                    previousStr = firstPlayer.Name;
+                    laterStr = "Win";
                 }
+                else if (firstPlayer.Score == 4 && secondPlayer.Score == 3)
+                {
+                    previousStr = firstPlayer.Name;
+                    laterStr = "Deuce1";
+                }
+
+                var resultStr = $"{previousStr} {laterStr}";
 
                 return resultStr;
             }
