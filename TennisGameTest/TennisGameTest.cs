@@ -177,7 +177,7 @@ namespace TennisGame
         [TestMethod]
         public void GetTennisResult_Player1_score_4_Player_score_5_Result_Player2_Deuce2()
         {
-            var gameScoreboard = new GameScoreboard();
+            var gameScoreboard = new GameScoreBoard();
 
             // Deuce1
             var players = new List<TennisPlayer>()
@@ -205,7 +205,7 @@ namespace TennisGame
         [TestMethod]
         public void GetTennisResult_Player1_score_5_Player_score_4_Result_Player1_Deuce2()
         {
-            var gameScoreboard = new GameScoreboard();
+            var gameScoreboard = new GameScoreBoard();
 
             // Deuce1
             var players = new List<TennisPlayer>()
@@ -299,7 +299,7 @@ namespace TennisGame
                 new TennisPlayer(){Score = 0}
             };
 
-            var gameScoreboard = new GameScoreboard();
+            var gameScoreboard = new GameScoreBoard();
             var highestScorePlayer = gameScoreboard.GetHighestScorePlayer(players);
 
             Assert.AreEqual(2, highestScorePlayer.Score);
@@ -314,7 +314,7 @@ namespace TennisGame
                 new TennisPlayer(){Score = 0}
             };
 
-            var gameScoreboard = new GameScoreboard();
+            var gameScoreboard = new GameScoreBoard();
             var lowestScorePlayer = gameScoreboard.GetLowestScorePlayer(players);
 
             Assert.AreEqual(0, lowestScorePlayer.Score);
@@ -322,7 +322,7 @@ namespace TennisGame
 
         private static void GameResultShouldBe(string expected, List<TennisPlayer> players)
         {
-            var gameScoreboard = new GameScoreboard();
+            var gameScoreboard = new GameScoreBoard();
 
             // act
             var gameResult = gameScoreboard.GetGameResult(players);

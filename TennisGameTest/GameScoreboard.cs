@@ -4,18 +4,21 @@ using System.Linq;
 
 namespace TennisGame
 {
-    public class GameScoreboard
+    public class GameScoreBoard
     {
         public static int DeuceCnt;
+        public bool IsGameEnd { get; set; }
 
-        public GameScoreboard()
+        public GameScoreBoard()
         {
             InitGameScoreBoard();
         }
 
+
         public void InitGameScoreBoard()
         {
             DeuceCnt = 0;
+            IsGameEnd = false;
         }
 
         public TennisPlayer GetHighestScorePlayer(List<TennisPlayer> players)
@@ -62,13 +65,18 @@ namespace TennisGame
                     break;
 
                 default:
-                    {
-                        GameScoreboard.DeuceCnt++;
-                        var deuceMsg = "Deuce" + GameScoreboard.DeuceCnt;
+                {
+                        GameScoreBoard.DeuceCnt++;
+                        var deuceMsg = "Deuce" + GameScoreBoard.DeuceCnt;
                         previousStr = highestScorePlayer.Name;
                         laterStr = twoPlayerScoreDiffVal == 1 ? deuceMsg : "Win";
-
                         resultStr = GetGameResultStr(previousStr, laterStr);
+
+                        if (laterStr.Equals("Win"))
+                        {
+                            IsGameEnd = true;
+                        }
+
                         break;
                     }
             }
