@@ -3,24 +3,63 @@ using System.Collections.Generic;
 
 namespace TennisGame
 {
-    class TennisGameMainProgram
+    internal class TennisGameMainProgram
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            var tennisPlayers = new List<TennisPlayer>(){new TennisPlayer(), new TennisPlayer()};
+            var tennisPlayers = new List<TennisPlayer>() { new TennisPlayer(), new TennisPlayer() };
             var gameScoreboard = new GameScoreBoard();
 
             InputPlayersName(tennisPlayers);
+            InputPlayersScore(tennisPlayers);
 
-            while (!gameScoreboard.IsGameEnd)
+            while (true)
             {
-                InputPlayersScore(tennisPlayers);
                 var currentGameSituation = gameScoreboard.GetGameResult(tennisPlayers);
-                Console.WriteLine("★Current game situation:  {0}",currentGameSituation);
+                Console.WriteLine("★Current game situation:  {0}", currentGameSituation);
+
+                if (!gameScoreboard.IsGameEnd)
+                {
+                    Console.Write("Which player gets next point? (1 or 2):");
+
+                    ClearKeyBuffer();
+                    var inputKey = Console.ReadKey().Key;
+                    Console.WriteLine();
+
+                    int indexOfGetPointPlayer;
+
+                    if (inputKey == ConsoleKey.D1 || inputKey == ConsoleKey.NumPad1)
+                    {
+                        indexOfGetPointPlayer = 0;
+                        tennisPlayers[indexOfGetPointPlayer].Score++;
+                    }
+                    else if (inputKey == ConsoleKey.D2 || inputKey == ConsoleKey.NumPad2)
+                    {
+                        indexOfGetPointPlayer = 1;
+                        tennisPlayers[indexOfGetPointPlayer].Score++;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You enter a wrong key, please try to enter 1 or 2 again!");
+                    }
+                }
+                else
+                {
+                    break;
+                }
+                Console.WriteLine();
             }
 
             Console.WriteLine("===== Game End =====");
             Console.ReadKey();
+        }
+
+        public static void ClearKeyBuffer()
+        {
+            while (Console.KeyAvailable)
+            {
+                Console.ReadKey(false);
+            }
         }
 
         private static void InputPlayersName(List<TennisPlayer> tennisPlayers)
@@ -40,8 +79,8 @@ namespace TennisGame
                 Console.Write("Input player{0}'s score:", i + 1);
 
                 int number = 0;
-                bool conversionSuccessful = int.TryParse(Console.ReadLine(), out number);
-                if (conversionSuccessful)
+                bool convertSuccessful = int.TryParse(Console.ReadLine(), out number);
+                if (convertSuccessful)
                 {
                     tennisPlayers[i].Score = number;
                 }
@@ -49,9 +88,7 @@ namespace TennisGame
                 {
                     Console.WriteLine("What your input is not integer, please try to enter a integer again!");
                     i--;
-//                    continue;
                 }
-                
             }
         }
     }
