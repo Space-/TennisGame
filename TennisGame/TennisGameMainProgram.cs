@@ -38,7 +38,20 @@ namespace TennisGame
             for (int i = 0; i < tennisPlayers.Count; i++)
             {
                 Console.Write("Input player{0}'s score:", i + 1);
-                tennisPlayers[i].Score = Convert.ToInt32(Console.ReadLine());
+
+                int number = 0;
+                bool conversionSuccessful = int.TryParse(Console.ReadLine(), out number);
+                if (conversionSuccessful)
+                {
+                    tennisPlayers[i].Score = number;
+                }
+                else
+                {
+                    Console.WriteLine("What your input is not integer, please try to enter a integer again!");
+                    i--;
+//                    continue;
+                }
+                
             }
         }
     }
