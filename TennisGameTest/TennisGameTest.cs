@@ -305,21 +305,6 @@ namespace TennisGame
             Assert.AreEqual(2, highestScorePlayer.Score);
         }
 
-        [TestMethod]
-        public void GetLowestScore_Player1_score_2_Player_score_0()
-        {
-            var players = new List<TennisPlayer>()
-            {
-                new TennisPlayer(){Score = 2},
-                new TennisPlayer(){Score = 0}
-            };
-
-            var gameScoreboard = new GameScoreBoard();
-            var lowestScorePlayer = gameScoreboard.GetLowestScorePlayer(players);
-
-            Assert.AreEqual(0, lowestScorePlayer.Score);
-        }
-
         private static void GameResultShouldBe(string expected, List<TennisPlayer> players)
         {
             var gameScoreboard = new GameScoreBoard();
