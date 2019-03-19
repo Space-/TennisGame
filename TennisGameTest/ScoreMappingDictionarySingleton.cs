@@ -28,14 +28,13 @@ namespace TennisGameTest
 
         private Dictionary<int, string> GetRoundScoreMapping()
         {
-            var dictionary = new Dictionary<int, string>();
-            int[] scores = { 0, 1, 2, 3 };
-            string[] roundScoreResult = { "Love", "15", "30", "40" };
-
-            for (var i = 0; i < scores.Length; i++)
+            var dictionary = new Dictionary<int, string>()
             {
-                dictionary.Add(scores[i], roundScoreResult[i]);
-            }
+                {0, "Love"},
+                {1, "15"},
+                {2, "30"},
+                {3, "40"}
+            };
 
             return dictionary;
         }
