@@ -7,11 +7,15 @@ namespace TennisGameTest
 {
     public class GameScoreBoard
     {
+        private TennisPlayer _firstPlayer;
+        private TennisPlayer _secondPlayer;
         public static int DeuceCnt;
         public bool IsGameEnd { get; set; }
 
-        public GameScoreBoard()
+        public GameScoreBoard(TennisPlayer firstPlayer, TennisPlayer secondPlayer)
         {
+            _firstPlayer = firstPlayer;
+            _secondPlayer = secondPlayer;
             InitGameScoreBoard();
         }
 
@@ -21,24 +25,23 @@ namespace TennisGameTest
             IsGameEnd = false;
         }
 
-        public TennisPlayer GetHighestScorePlayer(List<TennisPlayer> players)
+        public TennisPlayer GetHighestScorePlayer()
         {
+            var players = new List<TennisPlayer>() { _firstPlayer, _secondPlayer };
             return players.Aggregate((scoreHighPlayer, scoreLowPlayer) => scoreHighPlayer.Score > scoreLowPlayer.Score ? scoreHighPlayer : scoreLowPlayer);
         }
 
-        public string GetGameResult(List<TennisPlayer> players)
+        public string GetGameResult()
         {
-            var firstPlayer = players[0];
-            var secondPlayer = players[1];
             var resultStr = "";
             var scoreMapping = ScoreMappingDictionarySingleton.Instance;
-            var previousStr = scoreMapping.GetValInDictionary(firstPlayer.Score);
-            var laterStr = scoreMapping.GetValInDictionary(secondPlayer.Score);
+            var previousStr = scoreMapping.GetValInDictionary(_firstPlayer.Score);
+            var laterStr = scoreMapping.GetValInDictionary(_secondPlayer.Score);
             const int lowestScoreToWinThisRound = 4;
 
-            if (IsTwoPlayerSameScore(firstPlayer, secondPlayer))
+            if (IsTwoPlayerSameScore(_firstPlayer, _secondPlayer))
             {
-                switch (firstPlayer.Score)
+                switch (_firstPlayer.Score)
                 {
                     case 0:
                         resultStr = "Love All";
@@ -56,8 +59,8 @@ namespace TennisGameTest
             }
             else
             {
-                var highestScorePlayer = GetHighestScorePlayer(players);
-                var twoPlayerScoreDiffVal = Math.Abs(firstPlayer.Score - secondPlayer.Score);
+                var highestScorePlayer = GetHighestScorePlayer();
+                var twoPlayerScoreDiffVal = Math.Abs(_firstPlayer.Score - _secondPlayer.Score);
 
                 if (highestScorePlayer.Score >= lowestScoreToWinThisRound)
                 {

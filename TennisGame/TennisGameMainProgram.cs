@@ -8,15 +8,23 @@ namespace TennisGame
     {
         private static void Main(string[] args)
         {
-            var tennisPlayers = new List<TennisPlayer>() { new TennisPlayer(), new TennisPlayer() };
-            var gameScoreboard = new GameScoreBoard();
+            var firstPlayer = new TennisPlayer();
+            var secondPlayer = new TennisPlayer();
+
+            var tennisPlayers = new List<TennisPlayer>()
+            {
+                firstPlayer,
+                secondPlayer
+            };
+
+            var gameScoreboard = new GameScoreBoard(firstPlayer, secondPlayer);
 
             InputPlayersName(tennisPlayers);
             InputPlayersScore(tennisPlayers);
 
             while (true)
             {
-                var currentGameSituation = gameScoreboard.GetGameResult(tennisPlayers);
+                var currentGameSituation = gameScoreboard.GetGameResult();
                 Console.WriteLine("★Current game situation:  {0}", currentGameSituation);
 
                 if (!gameScoreboard.IsGameEnd)
