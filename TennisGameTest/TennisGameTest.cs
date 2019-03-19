@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TennisGame;
 
 namespace TennisGameTest
@@ -7,146 +6,120 @@ namespace TennisGameTest
     [TestClass]
     public class TennisGameTest
     {
+        private TennisPlayer _firstPlayer = new TennisPlayer();
+        private TennisPlayer _secondPlayer = new TennisPlayer();
+
         [TestMethod]
         public void GetTennisResult_Player1_score_0_Player2_score_0()
         {
-            var firstPlayer = new TennisPlayer() { Score = 0 };
-            var secondPlayer = new TennisPlayer() { Score = 0 };
-
-            GameResultShouldBe("Love All", firstPlayer, secondPlayer);
+            AddTwoPlayers(0, 0);
+            GameResultShouldBe("Love All", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_1_Player_score_0()
         {
-            var firstPlayer = new TennisPlayer() { Score = 1 };
-            var secondPlayer = new TennisPlayer() { Score = 0 };
-
-            GameResultShouldBe("15 Love", firstPlayer, secondPlayer);
+            AddTwoPlayers(1, 0);
+            GameResultShouldBe("15 Love", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_0_Player2_score_1()
         {
-            var firstPlayer = new TennisPlayer() { Score = 0 };
-            var secondPlayer = new TennisPlayer() { Score = 1 };
-
-            GameResultShouldBe("Love 15", firstPlayer, secondPlayer);
+            AddTwoPlayers(0, 1);
+            GameResultShouldBe("Love 15", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_2_Player_score_0()
         {
-            var firstPlayer = new TennisPlayer() { Score = 2 };
-            var secondPlayer = new TennisPlayer() { Score = 0 };
-
-            GameResultShouldBe("30 Love", firstPlayer, secondPlayer);
+            AddTwoPlayers(2, 0);
+            GameResultShouldBe("30 Love", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_0_Player_score_2()
         {
-            var firstPlayer = new TennisPlayer() { Score = 0 };
-            var secondPlayer = new TennisPlayer() { Score = 2 };
-
-            GameResultShouldBe("Love 30", firstPlayer, secondPlayer);
+            AddTwoPlayers(0, 2);
+            GameResultShouldBe("Love 30", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_3_Player_score_0()
         {
-            var firstPlayer = new TennisPlayer() { Score = 3 };
-            var secondPlayer = new TennisPlayer() { Score = 0 };
-
-            GameResultShouldBe("40 Love", firstPlayer, secondPlayer);
+            AddTwoPlayers(3, 0);
+            GameResultShouldBe("40 Love", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_0_Player_score_3()
         {
-            var firstPlayer = new TennisPlayer() { Score = 0 };
-            var secondPlayer = new TennisPlayer() { Score = 3 };
-
-            GameResultShouldBe("Love 40", firstPlayer, secondPlayer);
+            AddTwoPlayers(0, 3);
+            GameResultShouldBe("Love 40", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_4_Player_score_0_Result_Player1_Win()
         {
-            var firstPlayer = new TennisPlayer() { Score = 4, Name = "Player1" };
-            var secondPlayer = new TennisPlayer() { Score = 0, Name = "Player2" };
-
-            GameResultShouldBe("Player1 Win", firstPlayer, secondPlayer);
+            AddTwoPlayers(4, 0, "Player1", "Player2");
+            GameResultShouldBe("Player1 Win", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_0_Player_score_4_Result_Player2_Win()
         {
-            var firstPlayer = new TennisPlayer() { Score = 0, Name = "Player1" };
-            var secondPlayer = new TennisPlayer() { Score = 4, Name = "Player2" };
-
-            GameResultShouldBe("Player2 Win", firstPlayer, secondPlayer);
+            AddTwoPlayers(0, 4, "Player1", "Player2");
+            GameResultShouldBe("Player2 Win", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_4_Player_score_1_Result_Player1_Win()
         {
-            var firstPlayer = new TennisPlayer() { Score = 4, Name = "Player1" };
-            var secondPlayer = new TennisPlayer() { Score = 1, Name = "Player2" };
-
-            GameResultShouldBe("Player1 Win", firstPlayer, secondPlayer);
+            AddTwoPlayers(4, 1, "Player1", "Player2");
+            GameResultShouldBe("Player1 Win", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_1_Player_score_4_Result_Player2_Win()
         {
-            var firstPlayer = new TennisPlayer() { Score = 1, Name = "Player1" };
-            var secondPlayer = new TennisPlayer() { Score = 4, Name = "Player2" };
-
-            GameResultShouldBe("Player2 Win", firstPlayer, secondPlayer);
+            AddTwoPlayers(1, 4, "Player1", "Player2");
+            GameResultShouldBe("Player2 Win", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_4_Player_score_2_Result_Player1_Win()
         {
-            var firstPlayer = new TennisPlayer() { Score = 4, Name = "Player1" };
-            var secondPlayer = new TennisPlayer() { Score = 2, Name = "Player2" };
-
-            GameResultShouldBe("Player1 Win", firstPlayer, secondPlayer);
+            AddTwoPlayers(4, 2, "Player1", "Player2");
+            GameResultShouldBe("Player1 Win", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_2_Player_score_4_Result_Player2_Win()
         {
-            var firstPlayer = new TennisPlayer() { Score = 2, Name = "Player1" };
-            var secondPlayer = new TennisPlayer() { Score = 4, Name = "Player2" };
-
-            GameResultShouldBe("Player2 Win", firstPlayer, secondPlayer);
+            AddTwoPlayers(2, 4, "Player1", "Player2");
+            GameResultShouldBe("Player2 Win", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_4_Player_score_3_Result_Player1_Deuce1()
         {
-            var firstPlayer = new TennisPlayer() { Score = 4, Name = "Player1" };
-            var secondPlayer = new TennisPlayer() { Score = 3, Name = "Player2" };
-
-            GameResultShouldBe("Player1 Deuce1", firstPlayer, secondPlayer);
+            AddTwoPlayers(4, 3, "Player1", "Player2");
+            GameResultShouldBe("Player1 Deuce1", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_4_Player_score_5_Result_Player2_Deuce2()
         {
+            AddTwoPlayers(4, 3, "Player1", "Player2");
+
+            var gameScoreboard = new GameScoreBoard(_firstPlayer, _secondPlayer);
+
             // Deuce1
-            var firstPlayer = new TennisPlayer() { Score = 4, Name = "Player1" };
-            var secondPlayer = new TennisPlayer() { Score = 3, Name = "Player2" };
-
-            var gameScoreboard = new GameScoreBoard(firstPlayer, secondPlayer);
-
             var gameResult = gameScoreboard.GetGameResult();
 
-            // Deuce2
-            secondPlayer.Score = secondPlayer.Score + 2;
+            _secondPlayer.Score = _secondPlayer.Score + 2;
 
+            // Deuce2
             gameResult = gameScoreboard.GetGameResult();
 
             // assert
@@ -156,17 +129,16 @@ namespace TennisGameTest
         [TestMethod]
         public void GetTennisResult_Player1_score_5_Player_score_4_Result_Player1_Deuce2()
         {
+            AddTwoPlayers(3, 4, "Player1", "Player2");
+
+            var gameScoreboard = new GameScoreBoard(_firstPlayer, _secondPlayer);
+
             // Deuce1
-            var firstPlayer = new TennisPlayer() { Score = 3, Name = "Player1" };
-            var secondPlayer = new TennisPlayer() { Score = 4, Name = "Player2" };
-
-            var gameScoreboard = new GameScoreBoard(firstPlayer, secondPlayer);
-
             var gameResult = gameScoreboard.GetGameResult();
 
-            // Deuce2
-            firstPlayer.Score = firstPlayer.Score + 2;
+            _firstPlayer.Score = _firstPlayer.Score + 2;
 
+            // Deuce2
             gameResult = gameScoreboard.GetGameResult();
 
             // assert
@@ -176,69 +148,64 @@ namespace TennisGameTest
         [TestMethod]
         public void GetTennisResult_Player1_score_4_Player_score_6_Result_Player2_Win()
         {
-            var firstPlayer = new TennisPlayer() { Score = 4, Name = "Player1" };
-            var secondPlayer = new TennisPlayer() { Score = 6, Name = "Player2" };
-
-            GameResultShouldBe("Player2 Win", firstPlayer, secondPlayer);
+            AddTwoPlayers(4, 6, "Player1", "Player2");
+            GameResultShouldBe("Player2 Win", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_1_Player2_score_1()
         {
-            var firstPlayer = new TennisPlayer() { Score = 1, Name = "Player1" };
-            var secondPlayer = new TennisPlayer() { Score = 1, Name = "Player2" };
-
-            GameResultShouldBe("15 15", firstPlayer, secondPlayer);
+            AddTwoPlayers(1, 1, "Player1", "Player2");
+            GameResultShouldBe("15 15", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_2_Player2_score_2()
         {
-            var firstPlayer = new TennisPlayer() { Score = 2 };
-            var secondPlayer = new TennisPlayer() { Score = 2 };
-
-            GameResultShouldBe("30 30", firstPlayer, secondPlayer);
+            AddTwoPlayers(2, 2, "Player1", "Player2");
+            GameResultShouldBe("30 30", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_3_Player2_score_3_Result_Deuce()
         {
-            var firstPlayer = new TennisPlayer() { Score = 3 };
-            var secondPlayer = new TennisPlayer() { Score = 3 };
-
-            GameResultShouldBe("Deuce", firstPlayer, secondPlayer);
+            AddTwoPlayers(3, 3, "Player1", "Player2");
+            GameResultShouldBe("Deuce", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetTennisResult_Player1_score_4_Player2_score_4_Result_Deuce()
         {
-            var firstPlayer = new TennisPlayer() { Score = 4 };
-            var secondPlayer = new TennisPlayer() { Score = 4 };
-
-            GameResultShouldBe("Deuce", firstPlayer, secondPlayer);
+            AddTwoPlayers(4, 4, "Player1", "Player2");
+            GameResultShouldBe("Deuce", _firstPlayer, _secondPlayer);
         }
 
         [TestMethod]
         public void GetHighestScore_Player1_score_2_Player_score_0()
         {
-            var firstPlayer = new TennisPlayer() { Score = 2 };
-            var secondPlayer = new TennisPlayer() { Score = 0 };
+            AddTwoPlayers(2, 0, "Player1", "Player2");
 
-            var gameScoreboard = new GameScoreBoard(firstPlayer, secondPlayer);
+            var gameScoreboard = new GameScoreBoard(_firstPlayer, _secondPlayer);
             var highestScorePlayer = gameScoreboard.GetHighestScorePlayer();
 
             Assert.AreEqual(2, highestScorePlayer.Score);
         }
 
-        private static void GameResultShouldBe(string expected, TennisPlayer firstPlayer, TennisPlayer secondPlayer)
+        private static void GameResultShouldBe(string expected, TennisPlayer _firstPlayer, TennisPlayer _secondPlayer)
         {
-            var gameScoreboard = new GameScoreBoard(firstPlayer, secondPlayer);
+            var gameScoreboard = new GameScoreBoard(_firstPlayer, _secondPlayer);
 
             // act
             var gameResult = gameScoreboard.GetGameResult();
 
             // assert
             Assert.AreEqual(expected, gameResult);
+        }
+
+        private void AddTwoPlayers(int player1Score, int player2Score, string player1Name = "", string player2Name = "")
+        {
+            _firstPlayer = new TennisPlayer() { Score = player1Score, Name = player1Name };
+            _secondPlayer = new TennisPlayer() { Score = player2Score, Name = player2Name };
         }
     }
 }
