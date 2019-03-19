@@ -78,19 +78,6 @@ namespace TennisGameTest
             return resultStr;
         }
 
-        //        private static List<string> GetPlayerScoreVal(List<TennisPlayer> players, ScoreMappingDictionarySingleton scoreMapping)
-        //        {
-        //            var scoresVal = new List<string>();
-        //            foreach (var tennisPlayer in players) 
-        //            {
-        //                var key = tennisPlayer.Score;
-        //                var value = scoreMapping.GetValInDictionary(key);
-        //                scoresVal.Add(value);
-        //            }
-        //
-        //            return scoresVal;
-        //        }
-        //
         private static string GetGameResultStr(string previousStr, string laterStr)
         {
             return $"{previousStr} {laterStr}";
