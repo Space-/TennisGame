@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TennisGame
+namespace TennisGameTest
 {
     public class ScoreMappingDictionarySingleton
     {

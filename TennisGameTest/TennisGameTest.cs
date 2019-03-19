@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TennisGame;
 
-namespace TennisGame
+namespace TennisGameTest
 {
     [TestClass]
     public class TennisGameTest

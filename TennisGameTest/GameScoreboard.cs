@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TennisGame;
 
-namespace TennisGame
+namespace TennisGameTest
 {
     public class GameScoreBoard
     {
@@ -45,7 +46,7 @@ namespace TennisGame
 
                     case 1:
                     case 2:
-                        resultStr = $"{previousStr} {laterStr}";
+                        resultStr = GetGameResultStr(previousStr, laterStr);
                         break;
 
                     default:
@@ -71,7 +72,7 @@ namespace TennisGame
                     IsGameEnd = true;
                 }
 
-                resultStr = $"{previousStr} {laterStr}";
+                resultStr = GetGameResultStr(previousStr, laterStr);
             }
 
             return resultStr;
@@ -80,7 +81,7 @@ namespace TennisGame
         //        private static List<string> GetPlayerScoreVal(List<TennisPlayer> players, ScoreMappingDictionarySingleton scoreMapping)
         //        {
         //            var scoresVal = new List<string>();
-        //            foreach (var tennisPlayer in players)
+        //            foreach (var tennisPlayer in players) 
         //            {
         //                var key = tennisPlayer.Score;
         //                var value = scoreMapping.GetValInDictionary(key);
@@ -90,14 +91,14 @@ namespace TennisGame
         //            return scoresVal;
         //        }
         //
-        //        private static string GetGameResultStr(string previousStr, string laterStr)
-        //        {
-        //            return $"{previousStr} {laterStr}";
-        //        }
-
-        private static bool IsTwoPlayerSameScore(TennisPlayer highScorePlayer, TennisPlayer lowScorePlayer)
+        private static string GetGameResultStr(string previousStr, string laterStr)
         {
-            return highScorePlayer.Score == lowScorePlayer.Score;
+            return $"{previousStr} {laterStr}";
+        }
+
+        private static bool IsTwoPlayerSameScore(TennisPlayer firstPlayer, TennisPlayer secondPlayer)
+        {
+            return firstPlayer.Score == secondPlayer.Score;
         }
     }
 }
