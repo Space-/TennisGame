@@ -61,16 +61,17 @@ namespace TennisGameTest
             {
                 var highestScorePlayer = GetHighestScorePlayer();
                 var twoPlayerScoreDiffVal = Math.Abs(_firstPlayer.Score - _secondPlayer.Score);
+                const string winnerMsg = "Win";
 
                 if (highestScorePlayer.Score >= lowestScoreToWinThisRound)
                 {
-                    GameScoreBoard.DeuceCnt++;
-                    var deuceMsg = "Deuce" + GameScoreBoard.DeuceCnt;
+                    var deuceMsg = GetDeuceMsg();
+
                     previousStr = highestScorePlayer.Name;
-                    laterStr = twoPlayerScoreDiffVal == 1 ? deuceMsg : "Win";
+                    laterStr = twoPlayerScoreDiffVal == 1 ? deuceMsg : winnerMsg;
                 }
 
-                if (laterStr.Equals("Win"))
+                if (laterStr.Equals(winnerMsg))
                 {
                     IsGameEnd = true;
                 }
@@ -79,6 +80,13 @@ namespace TennisGameTest
             }
 
             return resultStr;
+        }
+
+        private static string GetDeuceMsg()
+        {
+            GameScoreBoard.DeuceCnt++;
+            var deuceMsg = "Deuce" + GameScoreBoard.DeuceCnt;
+            return deuceMsg;
         }
 
         private static string GetGameResultStr(string previousStr, string laterStr)
